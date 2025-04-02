@@ -1,5 +1,6 @@
 package io.ethertale.reasonanddomination_timers.timer.service;
 
+import io.ethertale.reasonanddomination_timers.exceptions.NoTimerOfTypeFoundException;
 import io.ethertale.reasonanddomination_timers.timer.model.Timer;
 import io.ethertale.reasonanddomination_timers.timer.model.TimerType;
 import io.ethertale.reasonanddomination_timers.timer.repo.TimerRepository;
@@ -23,7 +24,7 @@ public class TimerService {
             initTimers();
         }
 
-        return timerRepository.findByType(type).orElseThrow(() -> new RuntimeException(("No timer found for type " + type)));
+        return timerRepository.findByType(type).orElseThrow(() -> new NoTimerOfTypeFoundException(type.name()));
     }
 
     public void resetTimer(TimerType type, long hours) {
